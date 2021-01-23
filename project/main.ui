@@ -212,6 +212,15 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>Seleccion</tabstop>
+  <tabstop>pichincha</tabstop>
+  <tabstop>produbanco</tabstop>
+  <tabstop>pacifico</tabstop>
+  <tabstop>cfn</tabstop>
+  <tabstop>isffa</tabstop>
+  <tabstop>ingresar</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
