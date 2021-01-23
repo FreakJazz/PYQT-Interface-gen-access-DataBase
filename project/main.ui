@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frame">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -78,26 +78,41 @@
         <enum>Qt::Vertical</enum>
        </property>
        <widget class="QRadioButton" name="pichincha">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>BANCO DEL PICHINCHA</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="produbanco">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>BANCO PRODUBANCO</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="pacifico">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>BANCO DEL PACIFICO</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="cfn">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>CFN</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="isffa">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>ISSFA</string>
         </property>
@@ -132,6 +147,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="ingresar">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>130</x>
