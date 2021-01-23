@@ -8,6 +8,7 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from main_window import Ui_AnalisysCheck
 from pichincha import Ui_MainWindow
+from warning import Ui_Advertencia
 import ctypes #GetSystemMetrics
 import pyodbc
 
@@ -22,7 +23,7 @@ class Application(QMainWindow):
       #Title
       self.setWindowTitle("ANALISIS DE PERITAJE")
       # Add variables
-      self.count_conn = 0
+      self.file = "None"
       self. count_process = 0
       #Agree new item
       self.ingresar.clicked.connect(self.fn_select_file)
@@ -47,31 +48,66 @@ class Application(QMainWindow):
          self.fn_process_connect()
          self.label_4.setText("Conectado")
          print("Connected To Database")
-         self.ingresar.setEnabled(True)
          self.pichincha.setEnabled(True)
          self.produbanco.setEnabled(True)
          self.pacifico.setEnabled(True)
          self.cfn.setEnabled(True)
          self.isffa.setEnabled(True)
          self.conectar.setEnabled(False)
+         self.ingresar.setEnabled(True)
 
       except pyodbc.Error as e:
          print("Error in Connection", e)
          self.fn_process_connect()
          self.label_4.setText("Error al conectar")
 
-         #Eliminar un item
-         #self.lenguajes.removeItem(0)
 
    def fn_select_file(self):
-      if self.pichincha.setChecked(True):
+      if self.pichincha.isChecked():
+         
          print("entro en pichincha")
+         self.file = "Pichincha"
          uic.loadUi("pichincha.ui", self)
          #Title
-         self.setWindowTitle("ANALISIS DE PERITAJE (BANCO DEL PICHINCHA)")
-         
-      elif self.produbanco.setChecked(True):
+         self.setWindowTitle("ANALISIS DE PERITAJE")
+      elif self.produbanco.isChecked():
          print("entro en produbanco")
+         self.file = "Produbanco"
+         uic.loadUi("pichincha.ui", self)
+         #Title
+         self.setWindowTitle("ANALISIS DE PERITAJE")
+      elif self.pacifico.isChecked():
+         print("entro en pacifico")
+         self.file = "Pacifico"
+         uic.loadUi("pichincha.ui", self)
+         #Title
+         self.setWindowTitle("ANALISIS DE PERITAJE")
+      elif self.isffa.isChecked():
+         print("entro en isffa")
+         self.file = "Isffa"
+         uic.loadUi("pichincha.ui", self)
+         #Title
+         self.setWindowTitle("ANALISIS DE PERITAJE")
+      elif self.cfn.isChecked():
+         print("entro en cfn")
+         self.file = "CFN"
+         uic.loadUi("pichincha.ui", self)
+         #Title
+         self.setWindowTitle("ANALISIS DE PERITAJE")
+      else:
+         self.warning_frame = WarningDialog()
+         self.warning_frame.show()
+         print("no ha seleccionado nada")
+
+class WarningDialog(QDialog):
+    
+   def __init__(self, parent = None):
+          #QMainWindow Start
+      QDialog.__init__(self,parent)
+      uic.loadUi("warning.ui", self)
+      #Title
+      self.setWindowTitle("Advertencia")
+      print("entro al dialogo")
 
 if __name__ == "__main__": 
     app = QApplication(sys.argv)        #App Inicialization
