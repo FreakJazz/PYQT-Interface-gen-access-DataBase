@@ -2,7 +2,7 @@ import csv
 import pandas as pd
 import numpy as np
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog, QFileDialog, QAction
 from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
@@ -11,6 +11,7 @@ from pichincha import Ui_MainWindow
 from warning import Ui_Advertencia
 import ctypes #GetSystemMetrics
 import pyodbc
+import urllib.request
 
 # Application Class
 class Application(QMainWindow):
@@ -28,6 +29,25 @@ class Application(QMainWindow):
       #Agree new item
       self.ingresar.clicked.connect(self.fn_select_file)
       self.conectar.clicked.connect(self.fn_conectar)
+      self.actionSelecci_n.triggered.connect(self.fn_select)
+      self.actionSalirr.triggered.connect(self.fn_exit)
+      self.actionDocumentaci_n.triggered.connect(self.fn_documentation)
+      self.actionAcerca_de_Nosotros.triggered.connect(self.fn_about)
+
+   def fn_select(self):
+
+      self.Application = Application()        #Object Class
+      self.Application.show()   
+      
+   def fn_exit(self):
+      self.close()
+          
+   def fn_documentation(self):
+      self.contents = urllib.request.urlopen(
+         "https://github.com/FreakJazz/").read()
+   # "https://github.com/FreakJazz/PYQT-Interface-gen-access-DataBase"
+   def fn_about(self):
+      print("aqui va lo del about")
    
    def fn_process_connect(self):
       for i in range(101):
@@ -35,10 +55,7 @@ class Application(QMainWindow):
          self.label_4.setText("Conectando...")
       self.conectando.setValue(0)
 
-   def fn_process_analisys(self):
-      for i in range(101):
-         self.progress.setValue(i)
-         self.progress.setValue(0)
+   
 
    def fn_conectar(self):
          
@@ -66,34 +83,34 @@ class Application(QMainWindow):
       if self.pichincha.isChecked():
          
          print("entro en pichincha")
-         self.file = "Pichincha"
-         uic.loadUi("pichincha.ui", self)
-         #Title
-         self.setWindowTitle("ANALISIS DE PERITAJE")
+         file = "Banco del Pichincha"
+         self.analisys_frame = Analisys(None,file)
+         self.analisys_frame.show()
+         
       elif self.produbanco.isChecked():
          print("entro en produbanco")
-         self.file = "Produbanco"
-         uic.loadUi("pichincha.ui", self)
-         #Title
-         self.setWindowTitle("ANALISIS DE PERITAJE")
+         file = "Banco Produbanco"
+         self.analisys_frame = Analisys(None,file)
+         self.analisys_frame.show()
+
       elif self.pacifico.isChecked():
          print("entro en pacifico")
-         self.file = "Pacifico"
-         uic.loadUi("pichincha.ui", self)
-         #Title
-         self.setWindowTitle("ANALISIS DE PERITAJE")
+         file = "Banco del Pacifico"
+         self.analisys_frame = Analisys(None,file)
+         self.analisys_frame.show()
+
       elif self.isffa.isChecked():
          print("entro en isffa")
-         self.file = "Isffa"
-         uic.loadUi("pichincha.ui", self)
-         #Title
-         self.setWindowTitle("ANALISIS DE PERITAJE")
+         file = "ISFFA"
+         self.analisys_frame = Analisys(None,file)
+         self.analisys_frame.show()
+
       elif self.cfn.isChecked():
          print("entro en cfn")
-         self.file = "CFN"
-         uic.loadUi("pichincha.ui", self)
-         #Title
-         self.setWindowTitle("ANALISIS DE PERITAJE")
+         file = "CFN"
+         self.analisys_frame = Analisys(None,file)
+         self.analisys_frame.show()
+
       else:
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
@@ -102,12 +119,41 @@ class Application(QMainWindow):
 class WarningDialog(QDialog):
     
    def __init__(self, parent = None):
-          #QMainWindow Start
+      #QMainWindow Start
       QDialog.__init__(self,parent)
       uic.loadUi("warning.ui", self)
       #Title
       self.setWindowTitle("Advertencia")
       print("entro al dialogo")
+
+class Analisys(QMainWindow):
+   def __init__(self, parent ,file):
+      #QMainWindow Start
+      QMainWindow.__init__(self,parent)
+      #Charge MainWindow 
+      uic.loadUi("pichincha.ui", self)
+      #Title
+      self.file = file
+      self.type_file.setText(self.file)
+      self.setWindowTitle("ANALISIS DE PERITAJE")
+      self.examinar.clicked.connect(self.fn_check)
+      # self.analizar.clicked.connect(self.fn_analize)
+      # self.eliminar.clicked.connect(self.fn_delete)
+      # self.abrir.clicked.connect(self.fn_open)
+
+
+   def fn_process_analisys(self):
+      for i in range(101):
+         self.progress.setValue(i)
+      self.progress.setValue(0)
+
+   def fn_check(self):
+      self.options = QFileDialog.Options()
+      self.fileName, _ = QFileDialog.getOpenFileName(self,"Abrir Archivo", "","Archivos de Excel (*.xlsx);;All Files (*)", options=self.options)
+      print(self.fileName)
+      self.direccion.setText(str(self.fileName))
+      self.archivo.setText(str(self.fileName))
+
 
 if __name__ == "__main__": 
     app = QApplication(sys.argv)        #App Inicialization
