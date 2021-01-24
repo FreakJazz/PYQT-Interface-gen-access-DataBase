@@ -1,7 +1,9 @@
-import csv          
+import sys
 import pandas as pd
 import numpy as np
-import sys
+import pyodbc
+import urllib.request
+import ctypes #GetSystemMetrics
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog, QFileDialog, QAction
 from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QFont
@@ -9,9 +11,6 @@ from PyQt5.QtCore import Qt
 from main_window import Ui_AnalisysCheck
 from pichincha import Ui_MainWindow
 from warning import Ui_Advertencia
-import ctypes #GetSystemMetrics
-import pyodbc
-import urllib.request
 
 # Application Class
 class Application(QMainWindow):
@@ -55,8 +54,6 @@ class Application(QMainWindow):
          self.label_4.setText("Conectando...")
       self.conectando.setValue(0)
 
-   
-
    def fn_conectar(self):
          
       try:
@@ -77,7 +74,6 @@ class Application(QMainWindow):
          print("Error in Connection", e)
          self.fn_process_connect()
          self.label_4.setText("Error al conectar")
-
 
    def fn_select_file(self):
       if self.pichincha.isChecked():
@@ -137,7 +133,7 @@ class Analisys(QMainWindow):
       self.type_file.setText(self.file)
       self.setWindowTitle("ANALISIS DE PERITAJE")
       self.examinar.clicked.connect(self.fn_check)
-      # self.analizar.clicked.connect(self.fn_analize)
+      self.analizar.clicked.connect(self.fn_analize)
       # self.eliminar.clicked.connect(self.fn_delete)
       # self.abrir.clicked.connect(self.fn_open)
 
@@ -153,6 +149,10 @@ class Analisys(QMainWindow):
       print(self.fileName)
       self.direccion.setText(str(self.fileName))
       self.archivo.setText(str(self.fileName))
+   
+   def fn_analize(self):
+      self.df = pd.read_excel('users.xlsx', sheet_name = [0,1,2])
+      print(self.df)
 
 
 if __name__ == "__main__": 
