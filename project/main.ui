@@ -79,7 +79,7 @@
        </property>
        <widget class="QRadioButton" name="pichincha">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>BANCO DEL PICHINCHA</string>
@@ -87,7 +87,7 @@
        </widget>
        <widget class="QRadioButton" name="produbanco">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>BANCO PRODUBANCO</string>
@@ -95,7 +95,7 @@
        </widget>
        <widget class="QRadioButton" name="pacifico">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>BANCO DEL PACIFICO</string>
@@ -103,7 +103,7 @@
        </widget>
        <widget class="QRadioButton" name="cfn">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>CFN</string>
@@ -111,7 +111,7 @@
        </widget>
        <widget class="QRadioButton" name="isffa">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>ISSFA</string>
@@ -148,7 +148,7 @@
     </widget>
     <widget class="QPushButton" name="ingresar">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -319,6 +319,9 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSelecci_n">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Selección </string>
    </property>

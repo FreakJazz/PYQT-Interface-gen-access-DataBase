@@ -58,6 +58,7 @@ class aplication():
         avaluo = data_8_list[85]
         total = data_8_list[89]
         df = pd.read_excel('Tabla1.xlsx')
+        print("tabla1",df)
         lenght = len(df)+1
         lista = []
         for x in range(lenght):
@@ -79,9 +80,10 @@ class aplication():
                             'AVALUO TOTAL':[avaluo],
                         }) 
         df.append(row_to_add)
-        df.loc[lenght] = [lenght,lenght,nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo] 
-        df.to_excel('Tabla1.xlsx')
-        df.to_csv('Tabla1.csv', index=True,sep=',')
+        df.loc[lenght] = [nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo] 
+        print(df)
+        df.to_excel('Tabla1.xlsx',  index=False)
+        df.to_csv('Tabla1.csv', index=False,sep=',')
         print(nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, avaluo, total)
         try:
             con_string = r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:/Users/Jazmin Rodriguez/Desktop/Proyectos GitHub/PYQT-Interface-gen-access-DataBase/project/Base_Datos.accdb;'
