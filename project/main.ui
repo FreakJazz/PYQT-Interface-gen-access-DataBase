@@ -2,24 +2,33 @@
 <ui version="4.0">
  <class>AnalisysCheck</class>
  <widget class="QMainWindow" name="AnalisysCheck">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>287</height>
+    <width>300</width>
+    <height>387</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="statusTip">
+   <string/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frame">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>20</y>
-      <width>321</width>
+      <y>130</y>
+      <width>261</width>
       <height>221</height>
      </rect>
     </property>
@@ -40,7 +49,7 @@
       <rect>
        <x>10</x>
        <y>40</y>
-       <width>281</width>
+       <width>201</width>
        <height>121</height>
       </rect>
      </property>
@@ -52,7 +61,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>279</width>
+        <width>199</width>
         <height>119</height>
        </rect>
       </property>
@@ -69,26 +78,41 @@
         <enum>Qt::Vertical</enum>
        </property>
        <widget class="QRadioButton" name="pichincha">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>BANCO DEL PICHINCHA</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="produbanco">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>BANCO PRODUBANCO</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="pacifico">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>BANCO DEL PACIFICO</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="cfn">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>CFN</string>
         </property>
        </widget>
        <widget class="QRadioButton" name="isffa">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>ISSFA</string>
         </property>
@@ -123,9 +147,12 @@
      </property>
     </widget>
     <widget class="QPushButton" name="ingresar">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>130</x>
        <y>170</y>
        <width>121</width>
        <height>41</height>
@@ -149,18 +176,118 @@
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="Listo">
+   <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>250</y>
-      <width>47</width>
-      <height>13</height>
+      <y>10</y>
+      <width>261</width>
+      <height>111</height>
      </rect>
     </property>
-    <property name="text">
-     <string>TextLabel</string>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>171</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Conneccion con la Base de Datos</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>118</width>
+       <height>3</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>30</y>
+       <width>118</width>
+       <height>3</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="conectar">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>70</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Conectar</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>40</y>
+       <width>81</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Desconectado</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>41</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Estado:</string>
+     </property>
+    </widget>
+    <widget class="QProgressBar" name="conectando">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>141</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -168,7 +295,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>360</width>
+     <width>300</width>
      <height>21</height>
     </rect>
    </property>
@@ -192,6 +319,9 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSelecci_n">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Selección </string>
    </property>
