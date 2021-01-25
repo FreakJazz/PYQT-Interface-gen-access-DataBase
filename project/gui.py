@@ -142,6 +142,7 @@ class Analisys(QMainWindow):
       self.actionSalir.triggered.connect(self.fn_exit)
       self.actionDocumentaci_n.triggered.connect(self.fn_documentation)
       self.actionAcerca_de_Nosotros.triggered.connect(self.fn_about)
+      self.abrir.clicked.connect(self.fn_open)
 
    def fn_select(self):
 
@@ -213,8 +214,8 @@ class Analisys(QMainWindow):
          self.fn_process_analisys()
          lenght = len(df)+1
          df.loc[lenght] = [nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo] 
-         tabla1 = df.to_excel('Tabla1.xlsx',  index=False)
-         return tabla1
+         
+         return df
    
    def fn_analize(self):
       
@@ -229,23 +230,32 @@ class Analisys(QMainWindow):
          excel = pd.read_excel(str(self.archivo.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
          
          if self.file == "ISFFA":
-            df = self.process_isffa(excel)
+            self.df = self.process_isffa(excel)
 
          elif self.file == "CFN":
-            df = self.process_cfn(excel)
+            self.df = self.process_cfn(excel)
          
          elif self.file == "Banco del Pichincha":
-            df = self.process_pichincha(excel)
+            self.df = self.process_pichincha(excel)
          
          elif self.file == "Banco del Pacifico":
-            df = self.process_pacifico(excel)
+            self.df = self.process_pacifico(excel)
             
          elif self.file == "Banco Produbanco":
-            df = self.process_produbanco(excel)
+            self.df = self.process_produbanco(excel)
 
          else: 
-            df = "No existe esa Tabla"
-         df.open()
+            self.df = "No existe esa Tabla"
+         self.lineEdit.setText("Tabla1.xlsx")
+         self.fileSave, _ = QFileDialog.getSaveFileName(self.df.to_excel('Tabla1.xlsx',  index=False),"Guardar Archivo", "","Archivos de Excel (*.xlsx);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
+   
+   def fn_open(self):
+      if self.archivo.text() == '':
+         self.warning_frame = WarningDialog()
+         self.warning_frame.show()
+      else:
+         
+         open(str(self.fileSave))
          
 if __name__ == "__main__": 
     app = QApplication(sys.argv)        #App Inicialization

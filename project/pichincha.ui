@@ -299,7 +299,7 @@
        <widget class="QLineEdit" name="lineEdit"/>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="abrir">
         <property name="text">
          <string>Abrir</string>
         </property>
