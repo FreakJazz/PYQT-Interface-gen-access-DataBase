@@ -137,7 +137,6 @@ class Analisys(QMainWindow):
       # self.eliminar.clicked.connect(self.fn_delete)
       # self.abrir.clicked.connect(self.fn_open)
 
-
    def fn_process_analisys(self):
       for i in range(101):
          self.progress.setValue(i)
@@ -151,8 +150,11 @@ class Analisys(QMainWindow):
       self.archivo.setText(str(self.fileName))
    
    def fn_analize(self):
-      self.df = pd.read_excel('users.xlsx', sheet_name = [0,1,2])
-      print(self.df)
+      
+      print(self.archivo.textChanged())
+
+      self.warning_frame = WarningDialog()
+      self.warning_frame.show()
 
 
 if __name__ == "__main__": 
