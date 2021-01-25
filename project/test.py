@@ -11,6 +11,8 @@ class aplication():
         self.read_excel()
 
     def read_excel (self):
+        file = open(r'Tabla1.xlsx')
+        file.close()
         excel = pd.read_excel('issf.xlsx', sheet_name = ['1 Datos Ubic ','2 Valoración'])
         print(excel)
         df_one = excel['1 Datos Ubic ']
@@ -55,11 +57,31 @@ class aplication():
         valor = data_9_list[22]
         avaluo = data_8_list[85]
         total = data_8_list[89]
-        
-        row_to_add = pd.DataFrame({'col 1':[100], 
-                           'col 2':[100],
-                           'col 3':[100],
-                         })
+        df = pd.read_excel('Tabla1.xlsx')
+        lenght = len(df)+1
+        lista = []
+        for x in range(lenght):
+            lista.append(x)
+        print(df)
+        row_to_add = pd.DataFrame({
+                            'NUA':[nua], 
+                            'FECHA':[fecha],
+                            'SECTOR':[sector],
+                            'PARROQUIA':[parroquia], 
+                            'CIUDAD':[ciudad],
+                            'CANTON':[canton],
+                            'PROVINCIA':[provincia], 
+                            'INMUEBLE':[inmueble],
+                            'REGIMEN DE PROPIEDAD':[regimen],
+                            'AREA TERRENO':[area],
+                            'VALOR UNITARIO x M2':[valor],
+                            'VALOR DE LA REALIZACION':[total],
+                            'AVALUO TOTAL':[avaluo],
+                        }) 
+        df.append(row_to_add)
+        df.loc[lenght] = [lenght,lenght,nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo] 
+        df.to_excel('Tabla1.xlsx')
+        df.to_csv('Tabla1.csv', index=True,sep=',')
         print(nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, avaluo, total)
         try:
             con_string = r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:/Users/Jazmin Rodriguez/Desktop/Proyectos GitHub/PYQT-Interface-gen-access-DataBase/project/Base_Datos.accdb;'
@@ -75,8 +97,8 @@ class aplication():
             # cursor.execute('''INSERT INTO Tabla1 (NUA, FECHA, SECTOR) 
             # VALUES(nua, fecha, sector)''')
             cursor.execute('''
-            INSERT INTO Tabla1 (NUA, FECHA, SECTOR, PARROQUIA, CIUDAD, CANTON,PROVINCIA, INMUEBLE, REGIMEN DE PROPIEDAD, AREA TERRENO, VALOR UNITARIO x M2, AVALUO TOTAL, VALOR DE LA REALIZACION) 
-            VALUES(nua, fecha, sector, parroquia, ciudad, canton,provincia, inmueble, regimen, area, valor, avaluo, total)
+            INSERT INTO Tabla1 (NUA, FECHA, SECTOR, PARROQUIA, CIUDAD, CANTON,PROVINCIA, INMUEBLE, REGIMEN DE PROPIEDAD, AREA TERRENO, VALOR UNITARIO x M2, VALOR DE LA REALIZACION,AVALUO TOTAL,) 
+            VALUES(nua, fecha, sector, parroquia, ciudad, canton,provincia, inmueble, regimen, area, valor, total, avaluo)
             ''')
             conn.commit()
             conn.close()
