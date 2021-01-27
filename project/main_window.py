@@ -94,7 +94,6 @@ class Ui_AnalisysCheck(object):
         self.menuPrincipal.addAction(self.actionSelecci_n)
         self.menuPrincipal.addSeparator()
         self.menuPrincipal.addAction(self.actionSalirr)
-        self.menuAyuda.addAction(self.actionDocumentaci_n)
         self.menuAyuda.addAction(self.actionAcerca_de_Nosotros)
         self.menubar.addAction(self.menuPrincipal.menuAction())
         self.menubar.addAction(self.menuAyuda.menuAction())

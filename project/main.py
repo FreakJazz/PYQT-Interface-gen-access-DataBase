@@ -182,6 +182,22 @@ class Analisys(QMainWindow):
       self.direccion.setText(str(self.fileName))
       self.archivo.setText(str(self.fileName))
 
+   def process_cfn(self, excel):
+      print("entro a cfn")
+      return excel
+
+   def process_pichincha(self, excel):
+      print("entro a pichincha")
+      return excel
+      
+   def process_produbanco(self, excel):
+      print("entro a produbanco")
+      return excel
+      
+   def process_pacifico(self, excel):
+      print("entro a pacifico")
+      return excel
+
    def process_isffa(self, excel):
          df_one = excel['1 Datos Ubic ']
          df_dos =  excel['2 Valoración']
@@ -244,20 +260,24 @@ class Analisys(QMainWindow):
          file = open(r'Tabla1.xlsx')
          self.progress.setValue(25)
          file.close()
-         excel = pd.read_excel(str(self.archivo.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
          if self.file == "ISFFA":
+            excel = pd.read_excel(str(self.archivo.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
             self.df = self.process_isffa(excel)
 
          elif self.file == "CFN":
+            excel = pd.read_excel(str(self.archivo.text()))
             self.df = self.process_cfn(excel)
          
          elif self.file == "Banco del Pichincha":
+            excel = pd.read_excel(str(self.archivo.text()))
             self.df = self.process_pichincha(excel)
          
          elif self.file == "Banco del Pacifico":
+            excel = pd.read_excel(str(self.archivo.text()))
             self.df = self.process_pacifico(excel)
             
          elif self.file == "Banco Produbanco":
+            excel = pd.read_excel(str(self.archivo.text()))
             self.df = self.process_produbanco(excel)
 
          else: 
