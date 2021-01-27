@@ -275,16 +275,18 @@ class Analisys(QMainWindow):
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
       else:
+         openfile = str(self.fileCSV).split('.')
          print(str(self.fileCSV)+'.csv')
-         os.startfile(str(self.fileExcel)+'.csv')
+         os.startfile(openfile[0] +'.csv')
    
    def fn_open_excel(self):
       if self.archivo.text() == '':
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
       else:
+         openfile = str(self.fileExcel).split('.')
          print(str(self.fileExcel)+'.xlsx')
-         os.startfile(str(self.fileExcel)+'.xlsx')
+         os.startfile(openfile[0] +'.xlsx')
          
 if __name__ == "__main__": 
     app = QApplication(sys.argv)        #App Inicialization
