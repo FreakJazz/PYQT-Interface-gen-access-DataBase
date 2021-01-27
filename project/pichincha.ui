@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>419</width>
-    <height>456</height>
+    <width>424</width>
+    <height>512</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -162,26 +162,13 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="eliminar">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>70</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Eliminar</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="analizar">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>270</x>
        <y>70</y>
-       <width>75</width>
-       <height>23</height>
+       <width>111</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -263,7 +250,7 @@
       <x>10</x>
       <y>330</y>
       <width>391</width>
-      <height>71</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -298,14 +285,33 @@
       <item>
        <widget class="QLineEdit" name="lineEdit"/>
       </item>
-      <item>
-       <widget class="QPushButton" name="abrir">
-        <property name="text">
-         <string>Abrir</string>
-        </property>
-       </widget>
-      </item>
      </layout>
+    </widget>
+    <widget class="QPushButton" name="abrir_csv">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>70</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Abrir (.csv)</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="abrir_excel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>70</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Abrir (.xslx)</string>
+     </property>
     </widget>
    </widget>
    <widget class="QFrame" name="frame_5">
@@ -335,6 +341,9 @@
      <property name="text">
       <string>Banco del Pichincha</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
    </widget>
   </widget>
@@ -343,7 +352,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>419</width>
+     <width>424</width>
      <height>21</height>
     </rect>
    </property>
@@ -359,7 +368,6 @@
     <property name="title">
      <string>Ayuda</string>
     </property>
-    <addaction name="actionDocumentaci_n"/>
     <addaction name="actionAcerca_de_Nosotros"/>
    </widget>
    <addaction name="menuPrincipal"/>

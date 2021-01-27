@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import sys
 import pyodbc
+from datetime import datetime
 
 class aplication():
     
@@ -36,7 +37,11 @@ class aplication():
         print( data_1_list, data_2_list, data_3_list,data_4_list, data_5_list)
         # Valores a extraer
         nua = data_5_list[1]
-        fecha = data_3_list[11]
+        fecha = str(data_3_list[11])
+        fecha_sep = fecha.split('T')
+        print("fecha", fecha_sep)
+        fecha = datetime.strptime(str(fecha_sep[0]), '%Y-%m-%d')
+        print("fecha", fecha)
         canton = data_1_list[31]
         provincia = data_2_list[29]
         parroquia = data_2_list[31]
