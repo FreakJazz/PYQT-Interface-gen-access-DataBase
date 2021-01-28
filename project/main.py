@@ -268,9 +268,7 @@ class Analisys(QMainWindow, Ui_Analisys):
 
       else: 
          self.progress.setValue(10)
-         file = open(r'Tabla1.xlsx')
          self.progress.setValue(25)
-         file.close()
          if self.file == "ISFFA":
             excel = pd.read_excel(str(self.archivo.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
             self.df = self.process_isffa(excel)

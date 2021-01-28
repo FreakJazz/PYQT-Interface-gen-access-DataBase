@@ -14,14 +14,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Advertencia(object):
     def setupUi(self, Advertencia):
         Advertencia.setObjectName("Advertencia")
-        Advertencia.resize(320, 101)
+        Advertencia.resize(364, 101)
         self.buttonBox = QtWidgets.QDialogButtonBox(Advertencia)
-        self.buttonBox.setGeometry(QtCore.QRect(10, 60, 301, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(10, 60, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.label = QtWidgets.QLabel(Advertencia)
-        self.label.setGeometry(QtCore.QRect(30, 30, 241, 16))
+        self.label.setGeometry(QtCore.QRect(10, 30, 351, 20))
         self.label.setObjectName("label")
 
         self.retranslateUi(Advertencia)
