@@ -7,22 +7,28 @@ import urllib.request
 from datetime import datetime
 
 import ctypes #GetSystemMetrics
+import PyQt5
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog, QFileDialog, QAction
 from PyQt5 import uic, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from main_window import Ui_AnalisysCheck
-from pichincha import Ui_MainWindow
+from pichincha import Ui_Analisys
 from warning import Ui_Advertencia
+from acerca import Ui_MainWindow
 
 # Application Class
-class Application(QMainWindow):
+class Application(QMainWindow, Ui_AnalisysCheck):
    #Método constructor de la clase
    def __init__(self, parent = None):
+      super().__init__()
       #QMainWindow Start
-      QMainWindow.__init__(self,parent)
+      QMainWindow.__init__(self)
+      # Ui_AnalisysCheck.__init__(self)
+      self.setupUi(self)
+      
       #Charge MainWindow 
-      uic.loadUi("main.ui", self)
+      # uic.loadUi("main.ui", self)
       #Title
       self.setWindowTitle("ANALISIS DE PERITAJE")
       # Add variables
@@ -116,22 +122,26 @@ class Application(QMainWindow):
          self.warning_frame.show()
          print("no ha seleccionado nada")
 
-class WarningDialog(QDialog):
+class WarningDialog(QDialog, Ui_Advertencia):
     
    def __init__(self, parent= None):
       #QMainWindow Start
       QDialog.__init__(self,parent)
-      uic.loadUi("warning.ui", self)
+      super().__init__()
+      self.setupUi(self)
+      # uic.loadUi("warning.ui", self)
       #Title
       self.setWindowTitle("Advertencia")
       print("entro al dialogo")
 
-class About(QMainWindow):
+class About(QMainWindow, Ui_MainWindow):
    def __init__(self, parent= None):
       #QMainWindow Start
+      super().__init__()
       QMainWindow.__init__(self,parent)
       #Charge MainWindow 
-      uic.loadUi("acerca.ui", self)
+      self.setupUi(self)
+      # uic.loadUi("acerca.ui", self)
       self.setWindowTitle("ACERCA DE NOSOTROS")
       self.aceptar.clicked.connect(self.fn_ok)
 
@@ -139,12 +149,14 @@ class About(QMainWindow):
       self.close()
 
 
-class Analisys(QMainWindow):
+class Analisys(QMainWindow, Ui_Analisys):
    def __init__(self, parent ,file):
       #QMainWindow Start
+      super().__init__()
       QMainWindow.__init__(self,parent)
+      self.setupUi(self)
       #Charge MainWindow 
-      uic.loadUi("pichincha.ui", self)
+      # uic.loadUi("pichincha.ui", self)
       #Title
       self.file = file
       self.type_file.setText(self.file)
@@ -291,7 +303,7 @@ class Analisys(QMainWindow):
          self.progress.setValue(0)
 
    def fn_open_csv(self):
-      if self.archivo.text() == '':
+      if self.lineEdit.text() == '':
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
       else:
@@ -300,7 +312,7 @@ class Analisys(QMainWindow):
          os.startfile(openfile[0] +'.csv')
    
    def fn_open_excel(self):
-      if self.archivo.text() == '':
+      if self.lineEdit.text() == '':
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
       else:
@@ -309,8 +321,19 @@ class Analisys(QMainWindow):
          os.startfile(openfile[0] +'.xlsx')
          
 if __name__ == "__main__": 
-    app = QApplication(sys.argv)        #App Inicialization
-    _Application = Application()        #Object Class
-    _Application.show()                 #Show Window
-    app.exec_()                         #Execute Aplication
-    #sys.exit(app.exec_())
+   dirname = os.path.dirname(PyQt5.__file__)
+   plugin_path = os.path.join(dirname, 'plugins', 'platforms')
+   app = QApplication(sys.argv)        #App Inicialization
+   _Application = Application()        #Object Class
+   _Application.show()                 #Show Window
+   app.exec_()                         #Execute Aplication
+   sys.exit(app.exec_())
+
+   #  if __name__ == "__main__":
+   #      dirname = os.path.dirname(PyQt5.__file__)
+   #  plugin_path = os.path.join(dirname, 'plugins', 'platforms')
+   #  QtWidgets.QApplication.addLibraryPath(plugin_path)
+   #  app =  QtWidgets.QApplication(sys.argv)
+   #  window = MyApp()
+   #  window.show()
+   #  sys.exit(app.exec_())
