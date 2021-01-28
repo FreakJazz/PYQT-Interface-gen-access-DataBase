@@ -2,7 +2,6 @@ import sys
 import os
 import pandas as pd
 import numpy as np
-import pyodbc
 import urllib.request
 from datetime import datetime
 
@@ -327,7 +326,6 @@ if __name__ == "__main__":
    _Application = Application()        #Object Class
    _Application.show()                 #Show Window
    app.exec_()                         #Execute Aplication
-   sys.exit(app.exec_())
 
    #  if __name__ == "__main__":
    #      dirname = os.path.dirname(PyQt5.__file__)
