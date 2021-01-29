@@ -161,6 +161,7 @@ class Analisys(QMainWindow, Ui_Analisys):
       self.type_file.setText(self.file)
       self.setWindowTitle("ANALISIS DE PERITAJE")
       self.examinar.clicked.connect(self.fn_check)
+      self.examinar_2.clicked.connect(self.fn_check_2)
       self.analizar.clicked.connect(self.fn_analize)
       self.actionSelecci_n.triggered.connect(self.fn_select)
       self.actionSalir.triggered.connect(self.fn_exit)
@@ -189,9 +190,13 @@ class Analisys(QMainWindow, Ui_Analisys):
    def fn_check(self):
       self.options = QFileDialog.Options()
       self.fileName, _ = QFileDialog.getOpenFileName(self,"Abrir Archivo", "","Archivos de Excel (*.xlsx);;All Files (*)", options=self.options)
-      print(self.fileName)
       self.direccion.setText(str(self.fileName))
-      self.archivo.setText(str(self.fileName))
+   
+   def fn_check_2(self):
+      self.options = QFileDialog.Options()
+      self.file_db, _ = QFileDialog.getOpenFileName(self,"Abrir Archivo", "","Archivos de Excel (*.xlsx);;All Files (*)", options=self.options)
+      self.archivo.setText(str(self.file_db))
+
 
    def process_cfn(self, excel):
       print("entro a cfn")
@@ -252,12 +257,13 @@ class Analisys(QMainWindow, Ui_Analisys):
          avaluo = data_8_list[85]
          total = data_8_list[89]
          self.progress.setValue(64)
-         df = pd.read_excel('Tabla1.xlsx')
+         df = pd.read_excel(str(self.file_db))
          self.progress.setValue(78)
          lenght = len(df)+1
          df.loc[lenght] = [nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo] 
          self.progress.setValue(99)
          return df
+          
    
    def fn_analize(self):
       
@@ -266,6 +272,9 @@ class Analisys(QMainWindow, Ui_Analisys):
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
 
+      elif self.examinar.text() == '':
+         self.warning_frame = WarningDialog()
+         self.warning_frame.show()
       else: 
          self.progress.setValue(10)
          self.progress.setValue(25)
