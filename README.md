@@ -6,6 +6,6 @@
 pyinstaller --name="MyApplication" --hidden-import cmath  --windowed --onefile main.py
 
 
-pyinstaller --hidden-import=pkg_resources.py2_warn --onefile example.py
+pyinstaller --name="Peritaje" --hidden-import=pkg_resources.py2_warn --onefile main.py
 
-pyinstaller --hidden-import=pkg_resources.py2_warn --onefile --noconsole example.py
+pyinstaller --name="Peritaje" --hidden-import=pkg_resources.py2_warn --onefile --noconsole main.py

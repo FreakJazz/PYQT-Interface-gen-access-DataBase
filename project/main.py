@@ -1,16 +1,9 @@
 import sys
 import os
 import pandas as pd
-import numpy as np
-import urllib.request
 from datetime import datetime
-
-import ctypes #GetSystemMetrics
 import PyQt5
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog, QFileDialog, QAction
-from PyQt5 import uic, QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog
 from main_window import Ui_AnalisysCheck
 from pichincha import Ui_Analisys
 from warning import Ui_Advertencia
@@ -25,9 +18,6 @@ class Application(QMainWindow, Ui_AnalisysCheck):
       QMainWindow.__init__(self)
       # Ui_AnalisysCheck.__init__(self)
       self.setupUi(self)
-      
-      #Charge MainWindow 
-      # uic.loadUi("main.ui", self)
       #Title
       self.setWindowTitle("ANALISIS DE PERITAJE")
       # Add variables
@@ -58,27 +48,6 @@ class Application(QMainWindow, Ui_AnalisysCheck):
          self.conectando.setValue(i)
          self.label_4.setText("Conectando...")
       self.conectando.setValue(0)
-
-   # def fn_conectar(self):
-         
-      # try:
-      #    con_string = r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:/Users/Jazmin Rodriguez/Desktop/Proyectos GitHub/PYQT-Interface-gen-access-DataBase/project/Base_Datos.accdb;'
-      #    conn = pyodbc.connect(con_string)
-      #    self.fn_process_connect()
-      #    self.label_4.setText("Conectado")
-      #    print("Connected To Database")
-      #    self.pichincha.setEnabled(True)
-      #    self.produbanco.setEnabled(True)
-      #    self.pacifico.setEnabled(True)
-      #    self.cfn.setEnabled(True)
-      #    self.isffa.setEnabled(True)
-      #    self.conectar.setEnabled(False)
-      #    self.ingresar.setEnabled(True)
-
-      # except pyodbc.Error as e:
-      #    print("Error in Connection", e)
-      #    self.fn_process_connect()
-      #    self.label_4.setText("Error al conectar")
 
    def fn_select_file(self):
       if self.pichincha.isChecked():
@@ -154,8 +123,6 @@ class Analisys(QMainWindow, Ui_Analisys):
       super().__init__()
       QMainWindow.__init__(self,parent)
       self.setupUi(self)
-      #Charge MainWindow 
-      # uic.loadUi("pichincha.ui", self)
       #Title
       self.file = file
       self.type_file.setText(self.file)
@@ -194,7 +161,7 @@ class Analisys(QMainWindow, Ui_Analisys):
    
    def fn_check_2(self):
       self.options = QFileDialog.Options()
-      self.file_db, _ = QFileDialog.getOpenFileName(self,"Abrir Archivo", "","Archivos de Excel (*.xlsx);;All Files (*)", options=self.options)
+      self.file_db, _ = QFileDialog.getOpenFileName(self,"Abrir Archivo", "","Cargar Tabla de Excel (*.xlsx);;All Files (*)", options=self.options)
       self.archivo.setText(str(self.file_db))
 
 
@@ -217,6 +184,7 @@ class Analisys(QMainWindow, Ui_Analisys):
    def process_isffa(self, excel):
          df_one = excel['1 Datos Ubic ']
          df_dos =  excel['2 Valoración']
+         print(df_one, df_dos)
          # Documento uno
          self.progress.setValue(32)
          data_1 = df_one['Unnamed: 3']   
@@ -260,7 +228,8 @@ class Analisys(QMainWindow, Ui_Analisys):
          df = pd.read_excel(str(self.file_db))
          self.progress.setValue(78)
          lenght = len(df)+1
-         df.loc[lenght] = [nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo] 
+         res_list = [nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo]
+         df.loc[lenght] = res_list
          self.progress.setValue(99)
          return df
           
@@ -279,7 +248,7 @@ class Analisys(QMainWindow, Ui_Analisys):
          self.progress.setValue(10)
          self.progress.setValue(25)
          if self.file == "ISFFA":
-            excel = pd.read_excel(str(self.archivo.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
+            excel = pd.read_excel(str(self.direccion.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
             self.df = self.process_isffa(excel)
 
          elif self.file == "CFN":
@@ -305,7 +274,6 @@ class Analisys(QMainWindow, Ui_Analisys):
          self.fileExcel, _ = QFileDialog.getSaveFileName(self.df.to_excel('Tabla1.xlsx',  index=False),"Guardar Archivo", "Tabla1","Archivos de Excel (*.xlsx);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
          self.fileCSV, _ = QFileDialog.getSaveFileName(self.df.to_csv('Tabla1.csv',  index=False),"Guardar Archivo", "Tabla1","Archivos CSV (*.csv);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
          self.final_file = self.lineEdit.setText(str(self.fileExcel))
-         # print("file final",self.final_file)
          self.progress.setValue(0)
 
    def fn_open_csv(self):
@@ -333,12 +301,3 @@ if __name__ == "__main__":
    _Application = Application()        #Object Class
    _Application.show()                 #Show Window
    app.exec_()                         #Execute Aplication
-
-   #  if __name__ == "__main__":
-   #      dirname = os.path.dirname(PyQt5.__file__)
-   #  plugin_path = os.path.join(dirname, 'plugins', 'platforms')
-   #  QtWidgets.QApplication.addLibraryPath(plugin_path)
-   #  app =  QtWidgets.QApplication(sys.argv)
-   #  window = MyApp()
-   #  window.show()
-   #  sys.exit(app.exec_())
