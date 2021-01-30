@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>424</width>
-    <height>489</height>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,7 +34,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>131</width>
+       <width>181</width>
        <height>16</height>
       </rect>
      </property>
@@ -102,9 +102,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>130</y>
+      <y>140</y>
       <width>391</width>
-      <height>101</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -118,12 +118,12 @@
       <rect>
        <x>20</x>
        <y>10</y>
-       <width>111</width>
+       <width>201</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>Archivo Seleccionado</string>
+      <string>Selección de Tabla</string>
      </property>
     </widget>
     <widget class="Line" name="line_4">
@@ -152,21 +152,11 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QLineEdit" name="archivo">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>371</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="analizar">
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>70</y>
+       <y>90</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -175,12 +165,41 @@
       <string>Analizar</string>
      </property>
     </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>371</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="Line" name="line_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="archivo"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="examinar_2">
+        <property name="text">
+         <string>Examinar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_3">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>240</y>
+      <y>270</y>
       <width>391</width>
       <height>81</height>
      </rect>
@@ -196,7 +215,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>51</width>
+       <width>171</width>
        <height>16</height>
       </rect>
      </property>
@@ -248,7 +267,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>330</y>
+      <y>360</y>
       <width>391</width>
       <height>121</height>
      </rect>
@@ -264,7 +283,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>101</width>
+       <width>211</width>
        <height>16</height>
       </rect>
      </property>
@@ -290,9 +309,9 @@
     <widget class="QPushButton" name="abrir_csv">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>30</x>
        <y>70</y>
-       <width>111</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -305,7 +324,7 @@
       <rect>
        <x>230</x>
        <y>70</y>
-       <width>111</width>
+       <width>131</width>
        <height>31</height>
       </rect>
      </property>
@@ -332,9 +351,9 @@
     <widget class="QLabel" name="type_file">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>120</x>
        <y>10</y>
-       <width>101</width>
+       <width>151</width>
        <height>16</height>
       </rect>
      </property>
@@ -345,6 +364,19 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+   </widget>
+   <widget class="QSplitter" name="splitter">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>0</width>
+      <height>0</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

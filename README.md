@@ -3,4 +3,9 @@
 
 # Create execute file
 
-pip3 install fbs PyQt5==5.9.2 PyInstaller==3.4
+pyinstaller --name="MyApplication" --hidden-import cmath  --windowed --onefile main.py
+
+
+pyinstaller --name="Peritaje" --hidden-import=pkg_resources.py2_warn --onefile main.py
+
+pyinstaller --name="Peritaje" --hidden-import=pkg_resources.py2_warn --onefile --noconsole main.py
