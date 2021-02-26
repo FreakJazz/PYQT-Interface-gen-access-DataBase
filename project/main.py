@@ -182,6 +182,7 @@ class Analisys(QMainWindow, Ui_Analisys):
       return excel
 
    def process_isffa(self, excel):
+      try:
          df_one = excel['1 Datos Ubic ']
          df_dos =  excel['2 Valoración']
          print(df_one, df_dos)
@@ -232,6 +233,9 @@ class Analisys(QMainWindow, Ui_Analisys):
          df.loc[lenght] = res_list
          self.progress.setValue(99)
          return df
+      except ValueError:
+         self.warning_frame = WarningDialog()
+         self.warning_frame.show()
           
    
    def fn_analize(self):
@@ -248,8 +252,12 @@ class Analisys(QMainWindow, Ui_Analisys):
          self.progress.setValue(10)
          self.progress.setValue(25)
          if self.file == "ISFFA":
-            excel = pd.read_excel(str(self.direccion.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
-            self.df = self.process_isffa(excel)
+            try: 
+               excel = pd.read_excel(str(self.direccion.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
+               self.df = self.process_isffa(excel)
+            except KeyError:
+               self.warning_frame = WarningDialog()
+               self.warning_frame.show()
 
          elif self.file == "CFN":
             excel = pd.read_excel(str(self.archivo.text()))
@@ -269,12 +277,17 @@ class Analisys(QMainWindow, Ui_Analisys):
 
          else: 
             self.df = "No existe esa Tabla"
-         self.lineEdit.setText("Tabla1.xlsx")
-         self.df.to_excel('Tabla1.xlsx',  index=False)
-         self.fileExcel, _ = QFileDialog.getSaveFileName(self.df.to_excel('Tabla1.xlsx',  index=False),"Guardar Archivo", "Tabla1","Archivos de Excel (*.xlsx);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
-         self.fileCSV, _ = QFileDialog.getSaveFileName(self.df.to_csv('Tabla1.csv',  index=False),"Guardar Archivo", "Tabla1","Archivos CSV (*.csv);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
-         self.final_file = self.lineEdit.setText(str(self.fileExcel))
+         try:
+            self.df.to_excel('Tabla1.xlsx',  index=False)
+            self.fileExcel, _ = QFileDialog.getSaveFileName(self.df.to_excel('Tabla1.xlsx',  index=False),"Guardar Archivo", "Tabla1","Archivos de Excel (*.xlsx);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
+            self.fileCSV, _ = QFileDialog.getSaveFileName(self.df.to_csv('Tabla1.csv',  index=False),"Guardar Archivo", "Tabla1","Archivos CSV (*.csv);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
+            self.final_file = self.lineEdit.setText(str(self.fileExcel))
+         except AttributeError as e:
+            self.direccion.setText('')
+            self.archivo.setText('')
+            print(e)
          self.progress.setValue(0)
+            
 
    def fn_open_csv(self):
       if self.lineEdit.text() == '':

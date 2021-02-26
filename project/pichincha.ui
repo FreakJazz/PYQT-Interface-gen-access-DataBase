@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>424</width>
-    <height>531</height>
+    <height>641</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>40</y>
       <width>391</width>
-      <height>81</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -48,12 +48,12 @@
        <x>10</x>
        <y>40</y>
        <width>361</width>
-       <height>31</height>
+       <height>141</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="direccion"/>
+       <widget class="QListView" name="listView"/>
       </item>
       <item>
        <widget class="Line" name="line">
@@ -102,7 +102,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>140</y>
+      <y>240</y>
       <width>391</width>
       <height>131</height>
      </rect>
@@ -199,7 +199,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>270</y>
+      <y>380</y>
       <width>391</width>
       <height>81</height>
      </rect>
@@ -267,7 +267,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>360</y>
+      <y>470</y>
       <width>391</width>
       <height>121</height>
      </rect>
