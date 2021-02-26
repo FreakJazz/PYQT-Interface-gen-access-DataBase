@@ -1,5 +1,6 @@
 # PYQT-Interface-gen-access-DataBase
 
+pyuic5 pichincha.ui -o pichincha.py
 
 # Create execute file
 

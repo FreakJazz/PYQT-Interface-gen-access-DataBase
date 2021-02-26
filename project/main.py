@@ -156,14 +156,17 @@ class Analisys(QMainWindow, Ui_Analisys):
 
    def fn_check(self):
       self.options = QFileDialog.Options()
-      self.fileName, _ = QFileDialog.getOpenFileName(self,"Abrir Archivo", "","Archivos de Excel (*.xlsx);;All Files (*)", options=self.options)
-      self.direccion.setText(str(self.fileName))
+      self.fileNames, _ = QFileDialog.getOpenFileNames(self,"Abrir Archivo", "","Cargar Tabla de Excel (*.xlsx);;All Files (*)", options=self.options)
+      if self.fileNames:
+         self.lenght = len(self.fileNames)-1
+         while self.lenght >= 0:
+            self.listWidget.addItem(self.fileNames[self.lenght])
+            self.lenght -=1
    
    def fn_check_2(self):
       self.options = QFileDialog.Options()
       self.file_db, _ = QFileDialog.getOpenFileName(self,"Abrir Archivo", "","Cargar Tabla de Excel (*.xlsx);;All Files (*)", options=self.options)
       self.archivo.setText(str(self.file_db))
-
 
    def process_cfn(self, excel):
       print("entro a cfn")
@@ -226,13 +229,10 @@ class Analisys(QMainWindow, Ui_Analisys):
          avaluo = data_8_list[85]
          total = data_8_list[89]
          self.progress.setValue(64)
-         df = pd.read_excel(str(self.file_db))
          self.progress.setValue(78)
-         lenght = len(df)+1
          res_list = [nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo]
-         df.loc[lenght] = res_list
          self.progress.setValue(99)
-         return df
+         return res_list
       except ValueError:
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
@@ -245,16 +245,24 @@ class Analisys(QMainWindow, Ui_Analisys):
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
 
-      elif self.examinar.text() == '':
+      elif self.listWidget.count() == 0:
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
       else: 
          self.progress.setValue(10)
          self.progress.setValue(25)
          if self.file == "ISFFA":
-            try: 
-               excel = pd.read_excel(str(self.direccion.text()), sheet_name = ['1 Datos Ubic ','2 Valoración'])
-               self.df = self.process_isffa(excel)
+            try:
+               if self.fileNames:
+                  self.lenght = len(self.fileNames)-1
+                  self.df = pd.read_excel(str(self.file_db))
+                  while self.lenght >= 0:
+                     excel = pd.read_excel(str(self.fileNames[self.lenght]), sheet_name = ['1 Datos Ubic ','2 Valoración'])
+                     self.res_list = self.process_isffa(excel)
+                     lenght = len(self.df)+1
+                     self.df.loc[lenght] = self.res_list
+                     self.lenght -=1
+                  
             except KeyError:
                self.warning_frame = WarningDialog()
                self.warning_frame.show()
@@ -283,7 +291,7 @@ class Analisys(QMainWindow, Ui_Analisys):
             self.fileCSV, _ = QFileDialog.getSaveFileName(self.df.to_csv('Tabla1.csv',  index=False),"Guardar Archivo", "Tabla1","Archivos CSV (*.csv);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
             self.final_file = self.lineEdit.setText(str(self.fileExcel))
          except AttributeError as e:
-            self.direccion.setText('')
+            # self.listWidget.count() = 0
             self.archivo.setText('')
             print(e)
          self.progress.setValue(0)
