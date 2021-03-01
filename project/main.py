@@ -261,8 +261,7 @@ class Analisys(QMainWindow, Ui_Analisys):
                      self.res_list = self.process_isffa(excel)
                      lenght = len(self.df)+1
                      self.df.loc[lenght] = self.res_list
-                     self.lenght -=1
-                  
+                     self.lenght -=1                  
             except KeyError:
                self.warning_frame = WarningDialog()
                self.warning_frame.show()
