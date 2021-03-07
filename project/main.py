@@ -51,36 +51,30 @@ class Application(QMainWindow, Ui_AnalisysCheck):
 
    def fn_select_file(self):
       if self.pichincha.isChecked():
-         
-         print("entro en pichincha")
          file = "Banco del Pichincha"
          self.analisys_frame = Analisys(None,file)
          self.analisys_frame.show()
          self.close()
          
       elif self.produbanco.isChecked():
-         print("entro en produbanco")
          file = "Banco Produbanco"
          self.analisys_frame = Analisys(None,file)
          self.analisys_frame.show()
          self.close()
 
       elif self.pacifico.isChecked():
-         print("entro en pacifico")
          file = "Banco del Pacifico"
          self.analisys_frame = Analisys(None,file)
          self.analisys_frame.show()
          self.close()
 
       elif self.isffa.isChecked():
-         print("entro en isffa")
          file = "ISFFA"
          self.analisys_frame = Analisys(None,file)
          self.analisys_frame.show()
          self.close()
 
       elif self.cfn.isChecked():
-         print("entro en cfn")
          file = "CFN"
          self.analisys_frame = Analisys(None,file)
          self.analisys_frame.show()
@@ -88,7 +82,6 @@ class Application(QMainWindow, Ui_AnalisysCheck):
       else:
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
-         print("no ha seleccionado nada")
 
 class WarningDialog(QDialog, Ui_Advertencia):
     
@@ -100,7 +93,6 @@ class WarningDialog(QDialog, Ui_Advertencia):
       # uic.loadUi("warning.ui", self)
       #Title
       self.setWindowTitle("Advertencia")
-      print("entro al dialogo")
 
 class About(QMainWindow, Ui_MainWindow):
    def __init__(self, parent= None):
@@ -115,7 +107,6 @@ class About(QMainWindow, Ui_MainWindow):
 
    def fn_ok(self):
       self.close()
-
 
 class Analisys(QMainWindow, Ui_Analisys):
    def __init__(self, parent ,file):
@@ -188,9 +179,7 @@ class Analisys(QMainWindow, Ui_Analisys):
       try:
          df_one = excel['1 Datos Ubic ']
          df_dos =  excel['2 Valoración']
-         print(df_one, df_dos)
          # Documento uno
-         self.progress.setValue(32)
          data_1 = df_one['Unnamed: 3']   
          data_1_list = data_1.to_numpy()
          data_2 = df_one['Unnamed: 33']
@@ -204,14 +193,12 @@ class Analisys(QMainWindow, Ui_Analisys):
          data_6 = df_one['Unnamed: 14']
          data_6_list = data_6.to_numpy()
          # Documento dos 
-         self.progress.setValue(45)
          data_7 = df_dos['Unnamed: 4']
          data_7_list = data_7.to_numpy()
          data_8 = df_dos['Unnamed: 6']
          data_8_list = data_8.to_numpy()
          data_9 = df_dos['Unnamed: 9']
          data_9_list = data_9.to_numpy()
-         self.progress.setValue(60)
          # Valores a extraer
          nua = data_5_list[1]
          fecha = str(data_3_list[11])
@@ -228,43 +215,43 @@ class Analisys(QMainWindow, Ui_Analisys):
          valor = data_9_list[22]
          avaluo = data_8_list[85]
          total = data_8_list[89]
-         self.progress.setValue(64)
-         self.progress.setValue(78)
          res_list = [nua, fecha,sector,parroquia,ciudad,canton, provincia,inmueble, regimen, area, valor, total, avaluo]
-         self.progress.setValue(99)
-         return res_list
+         
       except ValueError:
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
-          
+         res_list = None
+      return res_list
    
    def fn_analize(self):
-      
-      print()
       if self.archivo.text() == '':
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
-
       elif self.listWidget.count() == 0:
          self.warning_frame = WarningDialog()
          self.warning_frame.show()
       else: 
-         self.progress.setValue(10)
-         self.progress.setValue(25)
+         prosses = 10
+         self.progress.setValue(prosses)
          if self.file == "ISFFA":
-            try:
-               if self.fileNames:
-                  self.lenght = len(self.fileNames)-1
-                  self.df = pd.read_excel(str(self.file_db))
-                  while self.lenght >= 0:
-                     excel = pd.read_excel(str(self.fileNames[self.lenght]), sheet_name = ['1 Datos Ubic ','2 Valoración'])
-                     self.res_list = self.process_isffa(excel)
+            # if self.fileNames:
+            self.lenght = len(self.fileNames)-1
+            self.df = pd.read_excel(str(self.file_db))
+            while self.lenght >= 0:
+               prosses += int(80/(len(self.fileNames)))
+               self.progress.setValue(prosses)
+               try:
+                  excel = pd.read_excel(str(self.fileNames[self.lenght]), sheet_name = ['1 Datos Ubic ','2 Valoración'])
+                  self.res_list = self.process_isffa(excel)
+                  if self.res_list is not None:
                      lenght = len(self.df)+1
                      self.df.loc[lenght] = self.res_list
-                     self.lenght -=1                  
-            except KeyError:
-               self.warning_frame = WarningDialog()
-               self.warning_frame.show()
+               except KeyError:
+                  pass
+                  # self.warning_frame = WarningDialog()
+                  # self.warning_frame.show()
+               print(str(self.fileNames[self.lenght]))
+               self.lenght -=1  
 
          elif self.file == "CFN":
             excel = pd.read_excel(str(self.archivo.text()))
@@ -285,6 +272,7 @@ class Analisys(QMainWindow, Ui_Analisys):
          else: 
             self.df = "No existe esa Tabla"
          try:
+            self.progress.setValue(99)
             self.df.to_excel('Tabla1.xlsx',  index=False)
             self.fileExcel, _ = QFileDialog.getSaveFileName(self.df.to_excel('Tabla1.xlsx',  index=False),"Guardar Archivo", "Tabla1","Archivos de Excel (*.xlsx);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
             self.fileCSV, _ = QFileDialog.getSaveFileName(self.df.to_csv('Tabla1.csv',  index=False),"Guardar Archivo", "Tabla1","Archivos CSV (*.csv);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
@@ -302,7 +290,6 @@ class Analisys(QMainWindow, Ui_Analisys):
          self.warning_frame.show()
       else:
          openfile = str(self.fileCSV).split('.')
-         print(str(self.fileCSV)+'.csv')
          os.startfile(openfile[0] +'.csv')
    
    def fn_open_excel(self):
@@ -311,7 +298,6 @@ class Analisys(QMainWindow, Ui_Analisys):
          self.warning_frame.show()
       else:
          openfile = str(self.fileExcel).split('.')
-         print(str(self.fileExcel)+'.xlsx')
          os.startfile(openfile[0] +'.xlsx')
          
 if __name__ == "__main__": 

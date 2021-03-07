@@ -9,4 +9,4 @@ pyinstaller --name="MyApplication" --hidden-import cmath  --windowed --onefile m
 
 pyinstaller --name="Peritaje" --hidden-import=pkg_resources.py2_warn --onefile main.py
 
-pyinstaller --name="Peritaje" --hidden-import=pkg_resources.py2_warn --onefile --noconsole main.py
+pyinstaller --name="Programa_Peritaje" --hidden-import=pkg_resources.py2_warn --onefile --noconsole main.py
