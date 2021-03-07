@@ -274,8 +274,10 @@ class Analisys(QMainWindow, Ui_Analisys):
          try:
             self.progress.setValue(99)
             self.df.to_excel('Tabla1.xlsx',  index=False)
-            self.fileExcel, _ = QFileDialog.getSaveFileName(self.df.to_excel('Tabla1.xlsx',  index=False),"Guardar Archivo", "Tabla1","Archivos de Excel (*.xlsx);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
-            self.fileCSV, _ = QFileDialog.getSaveFileName(self.df.to_csv('Tabla1.csv',  index=False),"Guardar Archivo", "Tabla1","Archivos CSV (*.csv);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
+            self.fileExcel, _ = QFileDialog.getSaveFileName(self.df.to_excel('Data_process.xlsx',  index=False),"Guardar Archivo", "Data_process","Archivos de Excel (*.xlsx);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
+            self.fileCSV, _ = QFileDialog.getSaveFileName(self.df.to_csv('Data_process.csv',  index=False),"Guardar Archivo", "Data_process","Archivos CSV (*.csv);;All Files (*)", options=QFileDialog.DontUseNativeDialog)
+            print(self.fileExcel)
+            print(self.fileCSV)
             self.final_file = self.lineEdit.setText(str(self.fileExcel))
          except AttributeError as e:
             # self.listWidget.count() = 0
